@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}Product Detail{% endblock %}
+{% block content %}
+<!--훗날 상품후기 추가-->
+
+        <div class="container">
+            <div class="row">
+                <div class="col-4">
+                    <img src="{{item.item_image.url}}" width="100%">
+                </div>
+                <div class="col">
+                    <h1 class="display-6">{{item.item_name}}</h1>
+
+                    <p><span class="badge badge-secondary">가격</span> {{item.item_price}}</p>
+                    <form action="" method="post">
+                        {{add_to_cart}}
+                        {% csrf_token %}
+                        <input type="submit" class="btn btn-primary btn-sm" value="Add to Cart">
+                    </form>
+                    <h5><span class="badge badge-secondary">설명</span>{{item.description|linebreaks}}</h5>
+                </div>
+            </div>
+
+        </div>
+{% endblock %}
