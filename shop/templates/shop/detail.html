@@ -12,6 +12,7 @@
                     <h1 class="display-6">{{item.item_name}}</h1>
 
                     <p><span class="badge badge-secondary">가격</span> {{item.item_price}}</p>
+                    <p><span class="badge badge-secondary">브랜드</span> {{item.brand}}</p>
                     <form action="" method="post">
                         {{add_to_cart}}
                         {% csrf_token %}

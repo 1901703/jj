@@ -27,7 +27,7 @@ class Item(models.Model):
     item_image = models.ImageField(upload_to='products/%Y/%m/%d',blank=True)
     description = models.TextField(blank=True)
     meta_description = models.TextField(blank=True)
-
+    brand = models.CharField(max_length=100, verbose_name='브랜드', null=True, blank=True)
     item_price = models.IntegerField(verbose_name='상품가격')
     item_amt = models.PositiveIntegerField()
 

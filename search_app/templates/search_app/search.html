@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
 {% block title %}Product Search{% endblock %}
 {% block content %}
-    <div>
-        <p class="text-center my_search_text"><b>"{{ query }}"</b>의 검색 결과입니다.</p>
+
+    <div class="alert alert-info" role="alert">
+        <b>"{{ query }}"</b>의 검색 결과입니다.
     </div>
     <div class="row">
         {% for item in items %}
@@ -19,7 +20,7 @@
         </div>
         {% empty %}
         <div class="row mx-auto">
-            <p class="text-center my_search_text">0 result found</p>
+            <p class="text-center my_search_text">검색결과가 없습니다.</p>
         </div>
         {% endfor %}
     </div>
