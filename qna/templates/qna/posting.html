@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}Q&A Page{% endblock %}
+
+{% block content %}
+    <h1>배출후기 개별 페이지입니다</h1>
+    <p>{{post.postname}}</p>
+    {% if post.post_image %}
+         <img src="{{ post.post_image.url }}" style="width: 360px; height: 300px;" alt="no image"> <br>
+    {% else %}
+    no image
+    {% endif %}
+    <p>{{post.contents}}</p>
+    <span id="user_name">{{ user.username }} 작성 </span><br>
+
+    {% if request.user == post.writer %}
+    <button><a href="{% url 'qna:remove_post' post.pk %}">삭제</a></button><br>
+    <button><a href="{% url 'qna:update_post' post.pk %}">수정</a></button><br>
+    {% endif %}
+
+    <button><a href="{% url 'qna:qna' %}">목록</a></button>
+{% endblock %}

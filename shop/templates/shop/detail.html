@@ -13,10 +13,10 @@
 
                     <p><span class="badge badge-secondary">가격</span> {{item.item_price}}</p>
                     <p><span class="badge badge-secondary">브랜드</span> {{item.brand}}</p>
-                    <form action="" method="post">
+                    <form action="{% url 'cart:item_add' item.id %}" method="post">
                         {{add_to_cart}}
                         {% csrf_token %}
-                        <input type="submit" class="btn btn-primary btn-sm" value="Add to Cart">
+                        <input type="submit" class="btn btn-primary btn-sm" value="장바구니 담기">
                     </form>
                     <h5><span class="badge badge-secondary">설명</span>{{item.description|linebreaks}}</h5>
                 </div>

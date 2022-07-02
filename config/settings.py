@@ -40,6 +40,9 @@ INSTALLED_APPS = [
     'shop',
     'search_app',
     'accounts',
+    'qna',
+    'bootstrap4',
+    'cart',
 ]
 
 MIDDLEWARE = [
@@ -128,4 +131,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 LOGIN_REDIRECT_URL='/'
 AUTH_USER_MODEL='accounts.MyUser'
+
+CART_ID='cart_in_session'
 

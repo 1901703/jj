@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404
+from cart.forms import AddItemForm
 from .models import *
 
 def item_in_category(request, category_slug=None):
@@ -14,7 +15,8 @@ def item_in_category(request, category_slug=None):
 
 def item_detail(request, id, item_slug=None):
     item = get_object_or_404(Item, id=id, slug=item_slug)
-    return render(request, 'shop/detail.html', {'item': item})
+    add_to_cart=AddItemForm(initial={'quantity':1})
+    return render(request, 'shop/detail.html', {'item': item, 'add_to_cart':add_to_cart})
 
 def index(request):
     return render(request, 'shop/index.html')
