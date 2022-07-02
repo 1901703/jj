@@ -1,12 +1,12 @@
 from datetime import timezone
-
 from django.contrib.auth.decorators import login_required
 from django.core.checks import messages
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
+from django.views.generic import UpdateView
 
+from qna.forms import FileUploadForm
+from qna.models import Post, Comment
 
-from qna.forms import FileUploadForm, CommentForm
-from qna.models import Post
 
 def qna(request):
     postlist=Post.objects.all()
@@ -31,7 +31,18 @@ def new_post(request):
         }
         return render(request, 'qna/new_post.html', context)
 
-'''''
+def posting(request, pk):
+    post=Post.objects.get(pk=pk)
+    comments = Comment.objects.filter(post = post.pk)
+    if request.method == "POST":
+        comment = Comment()
+        comment.post = post
+        comment.body = request.POST['body']
+        comment.save()
+    return render(request, 'qna/posting.html', {'post':post, 'comments':comments})
+
+
+#기본
 def update_post(request, pk):
     post = Post.objects.get(pk=pk)
     if request.method == 'POST':
@@ -56,10 +67,8 @@ def remove_post(request, pk):
         return render(request, 'qna/qna.html', {'postlist':postlist})
     return render(request, 'qna/remove_post.html', {'post': post})
     
-def posting(request, pk):
-    post=Post.objects.get(pk=pk)
-    return render(request, 'qna/posting.html', {'post':post})
-'''''
+
+
 
 '''''
 def posting(request, pk):
@@ -110,46 +119,15 @@ def remove_post(request, pk):
         messages.error(request, "본인 게시글이 아닙니다.")
         return render(request, 'qna/remove_post.html', {'post': post})
 
-def detail(request, pk):
-    post = Post.objects.get(pk=pk)
-    comment_form=CommentForm()
-    return render()
 '''''
 
-@login_required(login_url='common:login')
-def update_post(request, pk):
-    post = Post.objects.get(pk=pk)
-    if request.user != post.writer:
-        messages.error(request, '수정권한이 없습니다')
-        return redirect('qna:update_post', post_pk=post.pk)
-    if request.method == 'POST':
-        post.post_title=request.POST['post_title']
-        post.post_image=request.FILES['post_image']
-        post.contents=request.POST['contents']
-        #post=form.save(commit=False)
-        post.modify_date=timezone.now()
-        post.save()
-        return render(request, 'qna/posting.html', {'post':post})
-    else:
-        fileuploadForm=FileUploadForm(instance=post)
-        #fileuploadForm=FileUploadForm
-        context={
-            'fileuploadForm':fileuploadForm,
-        }
-        return render(request, 'qna/update_post.html', context)
-        #return render(request, 'qna/update_post.html', context)
+def detail(request,post_id):
+  post_detail = get_object_or_404(Post,pk=post_id)
 
-def remove_post(request, pk):
-    postlist = Post.objects.all()
-    post = Post.objects.get(pk=pk)
-    if request.method == 'POST':
-        post.delete()
-        return render(request, 'qna/qna.html', {'postlist':postlist})
-    return render(request, 'qna/remove_post.html', {'post': post})
+  return render(request,'detail.html',{'post':post_detail, })
 
-def posting(request, pk):
-    post=Post.objects.get(pk=pk)
-    return render(request, 'qna/posting.html', {'post':post})
+
+
 
 
 

@@ -29,6 +29,7 @@ class Item(models.Model):
     meta_description = models.TextField(blank=True)
     brand = models.CharField(max_length=100, verbose_name='브랜드', null=True, blank=True)
     item_price = models.IntegerField(verbose_name='상품가격')
+    discounted_price = models.IntegerField(verbose_name='할인가격', null=True, blank=True)
     item_amt = models.PositiveIntegerField()
 
     available_display = models.BooleanField('Display', default=True)

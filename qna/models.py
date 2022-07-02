@@ -1,3 +1,5 @@
+from datetime import timezone
+
 from django.db import models
 from config import settings
 
@@ -16,9 +18,5 @@ class Post(models.Model):
         return self.post_title
 
 class Comment(models.Model):
-    comment=models.TextField()
-    date=models.DateTimeField(auto_now_add=True)
-    post=models.ForeignKey(Post, null=True, blank=True, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.comment
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, null=True)
+    body = models.TextField()

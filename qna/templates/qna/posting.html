@@ -12,10 +12,23 @@
     <p>{{post.contents}}</p>
     <span id="user_name">{{ user.username }} 작성 </span><br>
 
-    {% if request.user == post.writer %}
     <button><a href="{% url 'qna:remove_post' post.pk %}">삭제</a></button><br>
     <button><a href="{% url 'qna:update_post' post.pk %}">수정</a></button><br>
-    {% endif %}
+    댓글 :
+    {% for comment in comments %}
+    {{comment.body}} - {{user.username}}
+    <br>
+    {% endfor %}
+
+    <br><br>
+    댓글 달기 :
+    <form method="POST">
+        {% csrf_token %}
+        <input name="body" type="text" value="">
+        <input class="btn btn-primary" type="submit" value="저장">
+    </form>
 
     <button><a href="{% url 'qna:qna' %}">목록</a></button>
+
+
 {% endblock %}
