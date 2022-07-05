@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'qna',
     'bootstrap4',
     'cart',
+    'coupon',
+    'order',
 ]
 
 MIDDLEWARE = [
@@ -68,6 +70,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'cart.context_processors.cart'
             ],
         },
     },
@@ -134,3 +137,10 @@ AUTH_USER_MODEL='accounts.MyUser'
 
 CART_ID='cart_in_session'
 
+
+IAMPORT_KEY = '1137695527284001'
+IAMPORT_SECRET = '859d8a9f83021166927cb901c3821ea51f73ebcf54dd0e1d650fbca65a42affaf4330faa9d73100a'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR,'static')
+]
